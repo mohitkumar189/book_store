@@ -1,0 +1,8 @@
+{
+  "development": {
+    "SECRET_KEY": "helothisisasecretkey"
+  },
+  "production": {
+    "SECRET_KEY": "helothisisasecretkey"
+  }
+}

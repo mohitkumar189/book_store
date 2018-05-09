@@ -1,0 +1,16 @@
+{
+  "development": {
+    "HOST": "localhost",
+    "USER": "root",
+    "PASSWORD": "",
+    "DATABASE_NAME": "book_store",
+    "SECRET_KEY": "helothisisasecretkey"
+  },
+  "production": {
+    "HOST": "localhost",
+    "USER": "root",
+    "PASSWORD": "",
+    "DATABASE_NAME": "rims_rsms",
+    "SECRET_KEY": "helothisisasecretkey"
+  }
+}
