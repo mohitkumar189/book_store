@@ -35,7 +35,7 @@ module.exports = {
                     const result2 = await Service.sendOtp(result[0].id);
                     if (result2.affectedRows > 0) {
                         //otp sent
-                        return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result2);
+                        return apiResponse.sendJson(req, res, 200, constants.OTP_SENT);
                     } else {
                         //error occured
                         return next(new Error(constants.COMMON_ERROR));
@@ -50,7 +50,7 @@ module.exports = {
                 };
                 try {
                     const result2 = await Service.save(objectForSaving)
-                    return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result2);
+                    return apiResponse.sendJson(req, res, 201, constants.OTP_SENT);
                 } catch (error) {
                     return next(new Error(constants.COMMON_ERROR + " " + error.message));
                 }
@@ -85,7 +85,7 @@ module.exports = {
             //url to verify otp
             try {
                 const result = await Service.verifyOtp(session_id, otp);
-                return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
+                return apiResponse.sendJson(req, res, 200, constants.OTP_VERIFIED);
             } catch (error) {
                 return next(new Error(constants.COMMON_ERROR + " " + error.message));
             }

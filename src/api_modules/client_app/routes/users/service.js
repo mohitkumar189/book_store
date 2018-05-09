@@ -4,6 +4,7 @@ const db = require('../../configs/db');
 const common = require('../../../../helpers/common');
 const _ = require('underscore');
 const logger = require('../../../../helpers/logger').logger
+const constants = require('../../../../common/constants');
 
 module.exports = {
     getAll: () => {
@@ -186,10 +187,10 @@ module.exports = {
                                 resolve(result)
                             } else {
                                 //wrong otp
-                                reject(new Error("Incorrect otp"))
+                                reject(new Error(constants.INVALID_OTP))
                             }
                         } else {
-                            reject(new Error("no session found"));
+                            reject(new Error(constants.NO_SESSION_FOUND));
                         }
                     }
                 });

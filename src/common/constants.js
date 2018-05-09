@@ -13,5 +13,9 @@ module.exports = {
     "SAVING_ERROR":"Something went wrong",
     "UPDATING_ERROR":"Something went wrong",
     "DELETING_ERROR":"Something went wrong",
-    "EXECUTION_ERROR":"Something went wrong"
+    "EXECUTION_ERROR":"Something went wrong",
+    "OTP_SENT":"OTP is sent on your number",
+    "OTP_VERIFIED":"OTP is verified",
+    "INVALID_OTP":"OTP is not valid",
+    "NO_SESSION_FOUND":"No session is found",
 }

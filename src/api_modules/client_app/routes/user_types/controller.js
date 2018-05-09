@@ -12,7 +12,7 @@ module.exports = {
     getAll: async (req, res, next) => {
         try {
             const result = await Service.getAll();
-            return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
+            return apiResponse.sendJson(req, res, 200, constants.DATA_FETCHED, result);
         } catch (error) {
             return next(new Error(constants.FETCHING_ERROR + " " + err.message));
         }
@@ -28,9 +28,9 @@ module.exports = {
         }
         try {
             const result = await Service.save(objectToSave);
-            return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
+            return apiResponse.sendJson(req, res, 201, constants.DATA_SAVED, result);
         } catch (error) {
-            return next(new Error(constants.FETCHING_ERROR + " " + error.message));
+            return next(new Error(constants.SAVING_ERROR + " " + error.message));
         }
     },
     updateAll: async (req, res, next) => {
@@ -49,7 +49,7 @@ module.exports = {
     getById: async (req, res, next) => {
         try {
             const result = await Service.getById(req.params.id);
-            return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
+            return apiResponse.sendJson(req, res, 200, constants.DATA_FETCHED, result);
         } catch (error) {
             return next(new Error(constants.FETCHING_ERROR + " " + error.message));
         }
