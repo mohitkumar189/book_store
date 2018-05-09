@@ -4,7 +4,7 @@ const db = require('../../configs/db');
 const common = require('../../../../helpers/common');
 const _ = require('underscore');
 const logger = require('../../../../helpers/logger').logger
-const TABLE_NAME = "categories";
+const TABLE_NAME = "user_analytics";
 
 module.exports = {
     getAll: (pid) => {

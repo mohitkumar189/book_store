@@ -12,6 +12,8 @@ const cookieParser = require('cookie-parser');
 const rfs = require('rotating-file-stream');
 const tokenValidator = require('./middlewares/tokenValidator');
 const bearerToken = require('express-bearer-token');
+const useragent = require('express-useragent');
+const requestIp = require('request-ip');
 
 //app for client app
 const app = new express();
@@ -42,6 +44,8 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+app.use(useragent.express());
+app.use(requestIp.mw())
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
