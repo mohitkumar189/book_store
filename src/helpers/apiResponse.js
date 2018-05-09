@@ -32,12 +32,6 @@ exports.sendJson = function (req, res, statusCode, message, data) {
     //request method
     resp.inputs.requestMethod = req.method;
 
-    if (message) {
-        resp.message = message;
-    } else {
-        resp.message = 'no message';
-    }
-
     if (data) {
         if (data.length != undefined) {
             resp.response.data = data;
@@ -47,6 +41,10 @@ exports.sendJson = function (req, res, statusCode, message, data) {
             resp.response.data = data;
             resp.response.dataType = 'object';
         }
+    } else {
+        resp.response.data = null;
+        resp.response.dataType = null;
+        resp.response.dataLength = null;
     }
 
     if (statusCode) {
@@ -55,6 +53,62 @@ exports.sendJson = function (req, res, statusCode, message, data) {
             case 200:
                 resp.success = 1;
                 resp.error = 0;
+                if (!message) resp.message = "OK";
+                else resp.message = message;
+                break;
+            case 201:
+                resp.success = 1;
+                resp.error = 0;
+                if (!message) resp.message = "CREATED";
+                else resp.message = message;
+                break;
+            case 202:
+                resp.success = 1;
+                resp.error = 0;
+                if (!message) resp.message = "ACCEPTED";
+                else resp.message = message;
+                break;
+            case 204:
+                resp.success = 1;
+                resp.error = 0;
+                if (!message) resp.message = "NO CONTENT";
+                else resp.message = message;
+                break;
+            case 205:
+                resp.success = 1;
+                resp.error = 0;
+                if (!message) resp.message = "RESET CONTENT";
+                else resp.message = message;
+                break;
+            case 206: //Partial content
+                resp.success = 1;
+                resp.error = 0;
+                if (!message) resp.message = "PARTIAL CONTENT";
+                else resp.message = message;
+                break;
+            case 400: //Partial content
+                resp.success = 1;
+                resp.error = 0;
+                if (!message) resp.message = "Bad Request";
+                else resp.message = message;
+                break;
+            case 401:
+                resp.success = 1;
+                resp.error = 0;
+                if (!message) resp.message = "Unauthorized";
+                else resp.message = message;
+                break;
+            case 404:
+                resp.success = 1;
+                resp.error = 0;
+                if (!message) resp.message = "Not Found";
+                else resp.message = message;
+                break;
+            case 500:
+                resp.success = 1;
+                resp.error = 0;
+                if (!message) resp.message = "Internal Server Error";
+                else resp.message = message;
                 break;
         }
     }
