@@ -36,7 +36,7 @@ module.exports = {
             })
         })
     },
-    save: (data) => {
+    save: async (data) => {
         let query = `INSERT INTO ${TABLE_NAME} SET ?`;
         return new Promise((resolve, reject) => {
             db.getConnection(function (err, connection) {
@@ -55,11 +55,12 @@ module.exports = {
                         //find the inserted id and initiate otp
                         if (result.affectedRows > 0 && result.insertId > 0) {
                             //initiate otp
-                            process.nextTick(() => {
-                                module.exports.sendOtp(result.insertId);
-                            })
+                            module.exports.sendOtp(result.insertId).then((result) => {
+                                resolve(result);
+                            }).catch((err) => {
+                                reject(err);
+                            });
                         }
-                        resolve(result);
                     }
 
                 });
@@ -216,7 +217,11 @@ module.exports = {
                                     //update previous otp by new otp
                                     module.exports.updateOtp(session_id);
                                 })
-                                resolve(result)
+                                const loginData = {
+                                    "user_id": result[0]['user_id'],
+                                    "session_id": result[0]['session_id'],
+                                }
+                                resolve(loginData)
                             } else {
                                 //wrong otp
                                 reject(new Error(constants.INVALID_OTP))

@@ -6,6 +6,7 @@ const apiResponse = require('../../../../helpers/apiResponse');
 const constants = require('../../../../common/constants');
 const _ = require('underscore');
 const common = require('../../../../helpers/common');
+const authController = require('../../../../helpers/authController');
 
 module.exports = {
     /*
@@ -35,7 +36,10 @@ module.exports = {
                     const result2 = await Service.sendOtp(result[0].id);
                     if (result2.affectedRows > 0) {
                         //otp sent
-                        return apiResponse.sendJson(req, res, 200, constants.OTP_SENT);
+                        const responseObj = {
+                            "session_id": result2['session_id']
+                        }
+                        return apiResponse.sendJson(req, res, 200, constants.OTP_SENT, responseObj);
                     } else {
                         //error occured
                         return next(new Error(constants.COMMON_ERROR));
@@ -50,7 +54,10 @@ module.exports = {
                 };
                 try {
                     const result2 = await Service.save(objectForSaving)
-                    return apiResponse.sendJson(req, res, 201, constants.OTP_SENT);
+                    const responseObj = {
+                        "session_id": result2['session_id']
+                    }
+                    return apiResponse.sendJson(req, res, 201, constants.OTP_SENT, responseObj);
                 } catch (error) {
                     return next(new Error(constants.COMMON_ERROR + " " + error.message));
                 }
@@ -85,7 +92,15 @@ module.exports = {
             //url to verify otp
             try {
                 const result = await Service.verifyOtp(session_id, otp);
-                return apiResponse.sendJson(req, res, 200, constants.OTP_VERIFIED);
+                const userToken = authController.generateToken(result, constants.MOBILE_AUD);
+                if (!_.isNull(userToken)) {
+                    const responseObj = {
+                        "token": userToken
+                    }
+                    return apiResponse.sendJson(req, res, 200, constants.OTP_VERIFIED, responseObj);
+                } else {
+                    return next(new Error(constants.COMMON_ERROR));
+                }
             } catch (error) {
                 return next(new Error(constants.COMMON_ERROR + " " + error.message));
             }
