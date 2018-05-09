@@ -18,7 +18,7 @@ module.exports = {
         }
         try {
             const result = await Service.getAll(parent_id);
-            return apiResponse.sendJson(req, res, 200, constants.DATA_FETCHED, result);
+            return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
         } catch (error) {
             return next(new Error(constants.FETCHING_ERROR + " " + err.message));
         }
@@ -27,9 +27,6 @@ module.exports = {
         const body = req.body;
         let data = body.data;
         let objectToSave = {};
-        objectToSave['user_agent'] = JSON.stringify(req.useragent);
-        objectToSave['ip_address'] = req.clientIp;
-
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
                 objectToSave[key] = data[key];
@@ -58,7 +55,7 @@ module.exports = {
     getById: async (req, res, next) => {
         try {
             const result = await Service.getById(req.params.id);
-            return apiResponse.sendJson(req, res, 201, constants.DATA_FETCHED, result);
+            return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
         } catch (error) {
             return next(new Error(constants.FETCHING_ERROR + " " + error.message));
         }
@@ -77,7 +74,7 @@ module.exports = {
         }
         try {
             const result = await Service.updateAtId(req.params.id, objectToSave);
-            return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED);
+            return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
         } catch (error) {
             return next(new Error(constants.UPDATING_ERROR + " " + error.message));
         }
