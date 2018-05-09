@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV=development nodemon www"
+    "start": "set NODE_ENV=development nodemon www"
   },
   "author": "mohit",
   "license": "ISC",

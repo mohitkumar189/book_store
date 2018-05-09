@@ -5,10 +5,12 @@ const common = require('../../../../helpers/common');
 const _ = require('underscore');
 const logger = require('../../../../helpers/logger').logger
 const constants = require('../../../../common/constants');
+const TABLE_NAME = "users";
+const USER_LOGIN_TABLE = "user_logins";
 
 module.exports = {
     getAll: () => {
-        const query = "SELECT * FROM user_types";
+        const query = `SELECT * FROM ${TABLE_NAME}`;
         return new Promise((resolve, reject) => {
             db.getConnection(function (err, connection) {
                 if (err) {
@@ -35,7 +37,7 @@ module.exports = {
         })
     },
     save: (data) => {
-        let query = "INSERT INTO users SET ?";
+        let query = `INSERT INTO ${TABLE_NAME} SET ?`;
         return new Promise((resolve, reject) => {
             db.getConnection(function (err, connection) {
                 if (err) {
@@ -70,7 +72,7 @@ module.exports = {
         })
     },
     getById: (id) => {
-        const query = "SELECT * FROM user_types WHERE id = ?";
+        const query = `SELECT * FROM ${TABLE_NAME} WHERE id = ?`;
         return new Promise((resolve, reject) => {
             db.getConnection(function (err, connection) {
                 if (err) {
@@ -98,7 +100,7 @@ module.exports = {
         })
     },
     getByPhone: (data) => {
-        const query = "SELECT * FROM users WHERE phone = ?";
+        const query = `SELECT * FROM ${TABLE_NAME} WHERE phone = ?`;
         return new Promise((resolve, reject) => {
             db.getConnection(function (err, connection) {
                 if (err) {
@@ -129,7 +131,7 @@ module.exports = {
         let objectToSave = {};
         const otp = common.generateOtp(4);
         const session_id = common.generateOtp(4);
-        const query = "INSERT INTO user_logins SET ?";
+        const query = `INSERT INTO ${USER_LOGIN_TABLE} SET ?`;
         objectToSave.otp = otp;
         objectToSave.user_id = userId;
         objectToSave.session_id = session_id;
@@ -161,7 +163,7 @@ module.exports = {
         })
     },
     verifyOtp: (session_id, otp) => {
-        const query = "SELECT * FROM user_logins WHERE session_id = ? ORDER BY id DESC LIMIT 1";
+        const query = `SELECT * FROM ${USER_LOGIN_TABLE} WHERE session_id = ? ORDER BY id DESC LIMIT 1`;
         return new Promise((resolve, reject) => {
             db.getConnection(function (err, connection) {
                 if (err) {
@@ -205,7 +207,7 @@ module.exports = {
     updateOtp: (session_id) => {
         let objectToSave = {};
         const otp = common.generateOtp(4);
-        const query = "UPDATE user_logins SET ? WHERE session_id = ?";
+        const query = `UPDATE ${USER_LOGIN_TABLE} SET ? WHERE session_id = ?`;
         objectToSave.otp = otp;
         objectToSave.status = '1';
         return new Promise((resolve, reject) => {

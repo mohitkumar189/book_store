@@ -4,10 +4,11 @@ const db = require('../../configs/db');
 const common = require('../../../../helpers/common');
 const _ = require('underscore');
 const logger = require('../../../../helpers/logger').logger
+const TABLE_NAME = "user_types";
 
 module.exports = {
     getAll: () => {
-        const query = "SELECT * FROM user_types";
+        const query = `SELECT * FROM ${TABLE_NAME}`;
         return new Promise((resolve, reject) => {
             db.getConnection(function (err, connection) {
                 if (err) {
@@ -35,7 +36,7 @@ module.exports = {
         })
     },
     save: (data) => {
-        let query = "INSERT INTO user_types SET ?";
+        let query = `INSERT INTO ${TABLE_NAME} SET ?`;
         return new Promise((resolve, reject) => {
             db.getConnection(function (err, connection) {
                 if (err) {
@@ -63,7 +64,7 @@ module.exports = {
         })
     },
     getById: (id) => {
-        const query = "SELECT * FROM user_types WHERE id = ?";
+        const query = `SELECT * FROM ${TABLE_NAME} WHERE id = ?`;
         return new Promise((resolve, reject) => {
             db.getConnection(function (err, connection) {
                 if (err) {
