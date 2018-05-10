@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "set NODE_ENV=development nodemon www"
+    "start": "NODE_ENV=development nodemon www"
   },
   "author": "mohit",
   "license": "ISC",
@@ -29,6 +29,7 @@
     "morgan": "^1.9.0",
     "multer": "^1.3.0",
     "mysql": "*",
+    "npm": "^6.0.0",
     "request-ip": "^2.0.2",
     "rotating-file-stream": "^1.3.6",
     "sequelize": "^4.37.6",

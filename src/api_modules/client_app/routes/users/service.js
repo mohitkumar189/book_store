@@ -5,6 +5,7 @@ const common = require('../../../../helpers/common');
 const _ = require('underscore');
 const logger = require('../../../../helpers/logger').logger
 const constants = require('../../../../common/constants');
+const queryExecuter = require('../../../../helpers/queryExecuter');
 const TABLE_NAME = "users";
 const USER_LOGIN_TABLE = "user_logins";
 

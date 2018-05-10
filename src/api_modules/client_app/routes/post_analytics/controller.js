@@ -4,6 +4,7 @@ const logger = require('../../../../helpers/logger').logger
 const util = require('../../../../common/util');
 const apiResponse = require('../../../../helpers/apiResponse');
 const constants = require('../../../../common/constants');
+const queryExecuter = require('../../../../helpers/queryExecuter');
 
 module.exports = {
     /*

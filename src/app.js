@@ -15,6 +15,7 @@ const userValidator = require('./middlewares/userValidator')
 const bearerToken = require('express-bearer-token');
 const useragent = require('express-useragent');
 const requestIp = require('request-ip');
+const requestAnalyzer = require('./middlewares/requestAnalyzer');
 
 //app for client app
 const app = new express();
@@ -51,9 +52,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bearerToken());//It manages the token variable in request
-app.use(tokenValidator);//It manages the token variable in request
-app.use(userValidator);//It manages the user role in request
+//app.use(bearerToken()); //It manages the token variable in request
+app.use(requestAnalyzer); //It manages the token variable in request
+//app.use(tokenValidator); //It manages the token variable in request
+//app.use(userValidator); //It manages the user role in request
 
 app.use('/book-store/api/v1', require('./api_modules/client_app/moduleRouter'));
 //error handler

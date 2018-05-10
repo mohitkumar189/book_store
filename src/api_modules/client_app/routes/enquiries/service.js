@@ -5,6 +5,7 @@ const common = require('../../../../helpers/common');
 const _ = require('underscore');
 const logger = require('../../../../helpers/logger').logger
 const TABLE_NAME = "enquiries";
+const queryExecuter = require('../../../../helpers/queryExecuter');
 
 module.exports = {
     getAll: (pid) => {
