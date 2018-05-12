@@ -18,6 +18,7 @@ module.exports = {
     "OTP_VERIFIED": "OTP is verified",
     "INVALID_OTP": "OTP is not valid",
     "NO_SESSION_FOUND": "No session is found",
+    "USER_ID_MISSING": "user id is missing",
     "TOKEN_ISSUER": "SERVER",
     "MOBILE_AUD": "APP",
     "WEB_AUD": "WEB",

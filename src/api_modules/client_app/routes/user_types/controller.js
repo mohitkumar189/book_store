@@ -1,5 +1,5 @@
 'use strict'
-const Service = require('./service');
+const Service = require('./Service');
 const logger = require('../../../../helpers/logger').logger
 const util = require('../../../../common/util');
 const apiResponse = require('../../../../helpers/apiResponse');
@@ -11,10 +11,10 @@ module.exports = {
        */
     getAll: async (req, res, next) => {
         try {
-            const result = await Service.getAll();
+            const result = await new Service.getAll();
             return apiResponse.sendJson(req, res, 200, constants.DATA_FETCHED, result);
         } catch (error) {
-            return next(new Error(constants.FETCHING_ERROR + " " + err.message));
+            return next(new Error(constants.FETCHING_ERROR + " " + error.message));
         }
     },
     save: async (req, res, next) => {
@@ -27,7 +27,7 @@ module.exports = {
             }
         }
         try {
-            const result = await Service.save(objectToSave);
+            const result = await new Service.save(objectToSave);
             return apiResponse.sendJson(req, res, 201, constants.DATA_SAVED, result);
         } catch (error) {
             return next(new Error(constants.SAVING_ERROR + " " + error.message));
@@ -48,7 +48,7 @@ module.exports = {
     */
     getById: async (req, res, next) => {
         try {
-            const result = await Service.getById(req.params.id);
+            const result = await new Service.getById(req.params.id);
             return apiResponse.sendJson(req, res, 200, constants.DATA_FETCHED, result);
         } catch (error) {
             return next(new Error(constants.FETCHING_ERROR + " " + error.message));
@@ -58,7 +58,21 @@ module.exports = {
 
     },
     updateAtId: async (req, res, next) => {
-
+        const body = req.body;
+        let data = body.data;
+        let filter = body.filter;
+        let objectToSave = {};
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                objectToSave[key] = data[key];
+            }
+        }
+        try {
+            const result = await new Service.updateAtId(req.params.id, objectToSave);
+            return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
+        } catch (error) {
+            return next(new Error(constants.UPDATING_ERROR + " " + error.message));
+        }
     },
     patchUpdateAtId: async (req, res, next) => {
 
