@@ -1,5 +1,5 @@
 'use strict'
-const Service = require('./service');
+const Service = require('./Service');
 const logger = require('../../../../helpers/logger').logger
 const util = require('../../../../common/util');
 const apiResponse = require('../../../../helpers/apiResponse');
@@ -28,12 +28,12 @@ module.exports = {
         }
 
         try {
-            const result = await Service.getByPhone(phone);
+            const result = await Service().getByPhone(phone);
 
             if (!_.isEmpty(result)) {
                 //login process
                 try {
-                    const result2 = await Service.sendOtp(result[0].id);
+                    const result2 = await Service().sendOtp(result[0].id);
                     if (result2.affectedRows > 0) {
                         //otp sent
                         const responseObj = {
@@ -53,7 +53,7 @@ module.exports = {
                     "phone": phone
                 };
                 try {
-                    const result2 = await Service.save(objectForSaving)
+                    const result2 = await Service().save(objectForSaving)
                     const responseObj = {
                         "session_id": result2['session_id']
                     }
@@ -91,7 +91,7 @@ module.exports = {
         if (_.isEqual(id, "verify-otp")) {
             //url to verify otp
             try {
-                const result = await Service.verifyOtp(session_id, otp);
+                const result = await Service().verifyOtp(session_id, otp);
                 const userToken = authController.generateToken(result, constants.MOBILE_AUD);
                 if (!_.isNull(userToken)) {
                     const responseObj = {

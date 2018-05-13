@@ -17,7 +17,7 @@ module.exports = {
             parent_id = 0;
         }
         try {
-            const result = await new Service.getAll(parent_id);
+            const result = await new Service().getAll(parent_id);
             return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
         } catch (error) {
             return next(new Error(constants.FETCHING_ERROR + " " + err.message));
@@ -33,7 +33,7 @@ module.exports = {
             }
         }
         try {
-            const result = await new Service.save(objectToSave);
+            const result = await new Service().save(objectToSave);
             return apiResponse.sendJson(req, res, 201, constants.DATA_SAVED, result);
         } catch (error) {
             return next(new Error(constants.SAVING_ERROR + " " + error.message));
@@ -54,7 +54,7 @@ module.exports = {
     */
     getById: async (req, res, next) => {
         try {
-            const result = await new Service.getById(req.params.id);
+            const result = await new Service().getById(req.params.id);
             return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
         } catch (error) {
             return next(new Error(constants.FETCHING_ERROR + " " + error.message));

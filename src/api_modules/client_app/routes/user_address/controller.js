@@ -14,7 +14,7 @@ module.exports = {
         if(!userId) return next(new Error(constants.USER_ID_MISSING));
 
         try {
-            const result = await new Service.getAll(userId);
+            const result = await new Service().getAll(userId);
             return apiResponse.sendJson(req, res, 200, constants.DATA_FETCHED, result);
         } catch (error) {
             return next(new Error(constants.FETCHING_ERROR + " " + error.message));
@@ -30,7 +30,7 @@ module.exports = {
             }
         }
         try {
-            const result = await new Service.save(objectToSave);
+            const result = await new Service().save(objectToSave);
             return apiResponse.sendJson(req, res, 201, constants.DATA_SAVED);
         } catch (error) {
             return next(new Error(constants.SAVING_ERROR + " " + error.message));
@@ -51,7 +51,7 @@ module.exports = {
     */
     getById: async (req, res, next) => {
         try {
-            const result = await new Service.getById(req.params.id);
+            const result = await new Service().getById(req.params.id);
             return apiResponse.sendJson(req, res, 201, constants.DATA_FETCHED, result);
         } catch (error) {
             return next(new Error(constants.FETCHING_ERROR + " " + error.message));
@@ -70,7 +70,7 @@ module.exports = {
             }
         }
         try {
-            const result = await new Service.updateAtId(req.params.id, objectToSave);
+            const result = await new Service().updateAtId(req.params.id, objectToSave);
             return apiResponse.sendJson(req, res, 201, constants.DATA_UPDATED, result);
         } catch (error) {
             return next(new Error(constants.UPDATING_ERROR + " " + error.message));
